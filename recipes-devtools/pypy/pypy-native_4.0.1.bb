@@ -31,6 +31,16 @@ do_install () {
     cp -dr --no-preserv=ownership ${S}/lib_pypy/ ${D}${prefix}
     cp -dr --no-preserv=ownership ${S}/site-packages/ ${D}${prefix}
 
+    # Add a symlink to the native Python so that scripts can just invoke
+	# "nativepython" and get the right one without needing absolute paths
+	# (these often end up too long for the #! parser in the kernel as the
+	# buffer is 128 bytes long).
+	ln -s ${D}${bindir}/pypy ${D}${bindir}/nativepypy
+    install -d ${D}${bindir}/pypy-native
+	ln -s ${D}${bindir}/pypy ${D}${bindir}/pypy-native/pypy
+
+
+
 	# We don't want modules in ~/.local being used in preference to those
 	# installed in the native sysroot, so disable user site support.
 	sed -i -e 's,^\(ENABLE_USER_SITE = \).*,\1False,' ${D}${prefix}/lib-python/2.7/site.py

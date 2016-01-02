@@ -12,6 +12,3 @@ S = "${WORKDIR}/async-${PV}"
 
 inherit setuptools-pypy
 
-RDEPENDS_${PN} += "python-threading python-lang"
-
-BBCLASSEXTEND = "nativesdk"

@@ -1,7 +1,6 @@
 inherit distutils_pypy
 
-#FIXME: whats this for????
-#DEPENDS += "python-distribute-native"
+DEPENDS += "pypy-distribute-native"
 
 DISTUTILS_INSTALL_ARGS = "--root=${D} \
     --prefix=${prefix} \
