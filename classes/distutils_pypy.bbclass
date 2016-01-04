@@ -32,6 +32,11 @@ distutils_pypy_stage_all() {
         bbfatal "${PYTHON_PN} setup.py install (stage) execution failed."
 }
 
+
+sysroot_stage_dirs_append () {
+	sysroot_stage_dir $from${prefix}/site-packages $to${STAGING_DIR_HOST}${prefix}/site-packages
+}
+
 distutils_pypy_do_install() {
         install -d ${D}${PYTHON_SITEPACKAGES_DIR}
         STAGING_INCDIR=${STAGING_INCDIR} \
@@ -43,12 +48,12 @@ distutils_pypy_do_install() {
 
         # support filenames with *spaces*
         # only modify file if it contains path  and recompile it
-        find ${D} -name "*.py" -exec grep -q ${D} {} \; -exec sed -i -e s:${D}::g {} \; -exec ${STAGING_BINDIR_NATIVE}/python-native/python -mcompileall {} \;
+        find ${D} -name "*.py" -exec grep -q ${D} {} \; -exec sed -i -e s:${D}::g {} \; -exec ${STAGING_BINDIR_NATIVE}/pypy-native/pypy -mcompileall {} \;
 
         if test -e ${D}${bindir} ; then	
             for i in ${D}${bindir}/* ; do \
                 if [ ${PN} != "${BPN}-native" ]; then
-                	sed -i -e s:${STAGING_BINDIR_NATIVE}/python-native/python:${bindir}/env\ python:g $i
+                	sed -i -e s:${STAGING_BINDIR_NATIVE}/pypy-native/pypy:${bindir}/env\ python:g $i
 		fi
                 sed -i -e s:${STAGING_BINDIR_NATIVE}:${bindir}:g $i
             done
@@ -57,7 +62,7 @@ distutils_pypy_do_install() {
         if test -e ${D}${sbindir}; then
             for i in ${D}${sbindir}/* ; do \
                 if [ ${PN} != "${BPN}-native" ]; then
-                	sed -i -e s:${STAGING_BINDIR_NATIVE}/python-native/python:${bindir}/env\ python:g $i
+                	sed -i -e s:${STAGING_BINDIR_NATIVE}/pypy-native/pypy:${bindir}/env\ python:g $i
 		fi
                 sed -i -e s:${STAGING_BINDIR_NATIVE}:${bindir}:g $i
             done

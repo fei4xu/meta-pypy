@@ -35,9 +35,9 @@ do_install () {
 	# "nativepython" and get the right one without needing absolute paths
 	# (these often end up too long for the #! parser in the kernel as the
 	# buffer is 128 bytes long).
-	ln -s ${D}${bindir}/pypy ${D}${bindir}/nativepypy
-    install -d ${D}${bindir}/pypy-native
-	ln -s ${D}${bindir}/pypy ${D}${bindir}/pypy-native/pypy
+	ln -s ${bindir}/pypy ${D}${bindir}/nativepypy
+	install -d ${D}${bindir}/pypy-native
+	ln -s ${bindir}/pypy ${D}${bindir}/pypy-native/pypy
 
 
 

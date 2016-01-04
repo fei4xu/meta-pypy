@@ -8,7 +8,6 @@ SRCNAME = "setuptools"
 
 PROVIDES = "pypy-distribute"
 
-DEPENDS += "pypy"
 DEPENDS_class-native += "pypy-native"
 
 inherit distutils_pypy
@@ -20,7 +19,7 @@ SRC_URI[sha256sum] = "f90ed8eb70b14b0594ba74e9de4ffca040c0ec8ee505cbf35704994678
 S = "${WORKDIR}/${SRCNAME}-${PV}"
 
 
-DISTUTILS_INSTALL_ARGS += "--install-lib=${D}${libdir}/${PYTHON_DIR}/site-packages"
+DISTUTILS_INSTALL_ARGS += "--install-lib=${D}${prefix}/site-packages"
 
 do_install_append() {
     mv ${D}${bindir}/easy_install ${D}${bindir}/easypypy_install
