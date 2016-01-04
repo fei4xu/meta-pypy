@@ -7,7 +7,7 @@ export STAGING_LIBDIR
 
 PACKAGES = "${PN}-staticdev ${PN}-dev ${PN}-dbg ${PN}-doc ${PN}"
 
-FILES_${PN} += "${libdir}/*"
+FILES_${PN} += "${libdir}/* ${prefix}/site-packages/*"
 
 FILES_${PN}-staticdev += "\
   ${PYTHON_SITEPACKAGES_DIR}/*.a \
