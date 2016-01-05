@@ -7,9 +7,11 @@ inherit native
 
 #RDEPENDS_${PN} = "libffi libssl expat bzip2 zlib ncurses-libncurses"
 
-SRC_URI = "file://pypy-${PV}-linux.tar.bz2"
+SRC_URI = "https://bitbucket.org/pypy/pypy/downloads/pypy-${PV}-linux.tar.bz2"
 S="${WORKDIR}/pypy-${PV}-linux"
 
+SRC_URI[md5sum] = "d1d03aa44df354a3f589473a51406795"
+SRC_URI[sha256sum] = "721920fcbb6aefc9a98e868e32b7f4ea5fd68b7f9305d08d0a2595327c9c0611"
 
 do_compile () {
 }
