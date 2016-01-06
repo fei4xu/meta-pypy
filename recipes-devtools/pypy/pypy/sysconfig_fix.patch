@@ -1,0 +1,89 @@
+Index: pypy-4.0.1-linux/lib-python/2.7/distutils/sysconfig_pypy.py
+===================================================================
+--- pypy-4.0.1-linux.orig/lib-python/2.7/distutils/sysconfig_pypy.py
++++ pypy-4.0.1-linux/lib-python/2.7/distutils/sysconfig_pypy.py
+@@ -65,7 +65,10 @@ def _init_posix():
+     g['SO'] = ".so"
+     g['SOABI'] = g['SO'].rsplit('.')[0]
+     g['LIBDIR'] = os.path.join(sys.prefix, 'lib')
+-    g['CC'] = "gcc -pthread" # -pthread might not be valid on OS/X, check
++    g['CC'] = "gcc"
++    g['CCSHARED'] = "-shared"
++    g['CFLAGS'] = "-pthread" # -pthread might not be valid on OS/X, check
++    g['ARFLAGS'] = "-cr"
+ 
+     global _config_vars
+     _config_vars = g
+@@ -123,22 +126,57 @@ def customize_compiler(compiler):
+     optional C speedup components.
+     """
+     if compiler.compiler_type == "unix":
+-        compiler.compiler_so.extend(['-O2', '-fPIC', '-Wimplicit'])
+-        compiler.shared_lib_extension = get_config_var('SO')
+-        if "CPPFLAGS" in os.environ:
+-            cppflags = shlex.split(os.environ["CPPFLAGS"])
+-            compiler.compiler.extend(cppflags)
+-            compiler.compiler_so.extend(cppflags)
+-            compiler.linker_so.extend(cppflags)
+-        if "CFLAGS" in os.environ:
+-            cflags = shlex.split(os.environ["CFLAGS"])
+-            compiler.compiler.extend(cflags)
+-            compiler.compiler_so.extend(cflags)
+-            compiler.linker_so.extend(cflags)
+-        if "LDFLAGS" in os.environ:
+-            ldflags = shlex.split(os.environ["LDFLAGS"])
+-            compiler.linker_so.extend(ldflags)
++        (cc, cxx, opt, cflags, ccshared, ldshared, so_ext, ar, ar_flags) = \
++            get_config_vars('CC', 'CXX', 'OPT', 'CFLAGS',
++                            'CCSHARED', 'LDSHARED', 'SO', 'AR',
++                            'ARFLAGS')
++        if opt == None:
++            opt = ''
++
++        if 'CC' in os.environ:
++            newcc = os.environ['CC']
++            if (sys.platform == 'darwin'
++                    and 'LDSHARED' not in os.environ
++                    and ldshared.startswith(cc)):
++                # On OS X, if CC is overridden, use that as the default
++                #       command for LDSHARED as well
++                ldshared = newcc + ldshared[len(cc):]
++            cc = newcc
++        if 'CXX' in os.environ:
++            cxx = os.environ['CXX']
++        if 'LDSHARED' in os.environ:
++            ldshared = os.environ['LDSHARED']
++        if 'CPP' in os.environ:
++            cpp = os.environ['CPP']
++        else:
++            cpp = cc + " -E"           # not always
++        if 'LDFLAGS' in os.environ:
++            ldshared = ldshared + ' ' + os.environ['LDFLAGS']
++        if 'CFLAGS' in os.environ:
++            cflags = opt + ' ' + os.environ['CFLAGS']
++            ldshared = ldshared + ' ' + os.environ['CFLAGS']
++        if 'CPPFLAGS' in os.environ:
++            cpp = cpp + ' ' + os.environ['CPPFLAGS']
++            cflags = cflags + ' ' + os.environ['CPPFLAGS']
++            ldshared = ldshared + ' ' + os.environ['CPPFLAGS']
++        if 'AR' in os.environ:
++            ar = os.environ['AR']
++        if 'ARFLAGS' in os.environ:
++            archiver = ar + ' ' + os.environ['ARFLAGS']
++        else:
++            archiver = ar + ' ' + ar_flags
++
++        cc_cmd = cc + ' ' + cflags
++        compiler.set_executables(
++            preprocessor=cpp,
++            compiler=cc_cmd,
++            compiler_so=cc_cmd + ' ' + ccshared,
++            compiler_cxx=cxx,
++            linker_so=ldshared,
++            linker_exe=cc,
++            archiver=archiver)
+ 
++        compiler.shared_lib_extension = so_ext
+ 
+ from sysconfig_cpython import (
+     parse_makefile, _variable_rx, expand_makefile_vars)
