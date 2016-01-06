@@ -1,0 +1,46 @@
+Index: pypy_test/rpython/translator/platform/linux.py
+===================================================================
+--- pypy_test.orig/rpython/translator/platform/linux.py	2015-12-27 16:32:35.743134476 -0500
++++ pypy_test/rpython/translator/platform/linux.py	2015-12-28 20:55:01.269705699 -0500
+@@ -22,6 +22,9 @@
+     so_prefixes = ('lib', '')
+ 
+     def _args_for_shared(self, args):
++        return ['-m32'] + ['-shared'] + args
++    
++    def _args_for_shared_make(self, args):
+         return ['-shared'] + args
+ 
+     def _include_dirs_for_libffi(self):
+Index: pypy_test/rpython/translator/platform/posix.py
+===================================================================
+--- pypy_test.orig/rpython/translator/platform/posix.py	2015-12-27 16:32:35.739134476 -0500
++++ pypy_test/rpython/translator/platform/posix.py	2015-12-28 20:55:22.945704770 -0500
+@@ -95,6 +95,9 @@
+                                     for ldir in rel_libdirs]
+ 
+     def get_shared_only_compile_flags(self):
++        return tuple(self.shared_only) + ('-fvisibility=hidden',) + ('-m32',)
++
++    def get_shared_only_compile_flags_make(self):
+         return tuple(self.shared_only) + ('-fvisibility=hidden',)
+ 
+     def gen_makefile(self, cfiles, eci, exe_name=None, path=None,
+@@ -114,7 +117,7 @@
+ 
+         linkflags = list(self.link_flags)
+         if shared:
+-            linkflags = self._args_for_shared(linkflags)
++            linkflags = self._args_for_shared_make(linkflags)
+ 
+         linkflags += self._exportsymbols_link_flags()
+ 
+@@ -125,7 +128,7 @@
+             target_name = exe_name.basename
+ 
+         if shared:
+-            cflags = tuple(self.cflags) + self.get_shared_only_compile_flags()
++            cflags = tuple(self.cflags) + self.get_shared_only_compile_flags_make()
+         else:
+             cflags = tuple(self.cflags) + tuple(self.standalone_only)
+ 

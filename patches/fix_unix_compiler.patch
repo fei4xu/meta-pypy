@@ -1,0 +1,14 @@
+Index: pypy-4.0.1-src/lib-python/2.7/distutils/sysconfig_pypy.py
+===================================================================
+--- pypy-4.0.1-src.orig/lib-python/2.7/distutils/sysconfig_pypy.py	2015-12-28 20:15:32.869807216 -0500
++++ pypy-4.0.1-src/lib-python/2.7/distutils/sysconfig_pypy.py	2015-12-28 20:22:52.865788356 -0500
+@@ -123,6 +123,9 @@
+     optional C speedup components.
+     """
+     if compiler.compiler_type == "unix":
++        cc =  get_config_var('CC')
++        compiler.set_executables(compiler=cc, compiler_so=cc, linker_so=cc, linker_exe=cc)
++        compiler.linker_so.extend(['-shared'])
+         compiler.compiler_so.extend(['-O2', '-fPIC', '-Wimplicit'])
+         compiler.shared_lib_extension = get_config_var('SO')
+         if "CPPFLAGS" in os.environ:
