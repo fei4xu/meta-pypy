@@ -32,7 +32,7 @@ To obtain the desired variables, just open a dev console `bitbake -c devshell ba
  `wget https://bitbucket.org/pypy/pypy/downloads/pypy-4.0.1-linux.tar.bz2`  
  `tar -jxvf pypy-4.0.1-linux.tar.bz2`  
  `wget https://bitbucket.org/pypy/pypy/downloads/pypy-4.0.1-src.zip`  
- `unzip pypy-4.0.1-src.zip && cd pypy-4.0.1-src`
+ `unzip pypy-4.0.1-src.zip && cd pypy-4.0.1-src`  
  `patch -p1  < $META-PYPY_SRC/patches/fix_unix_compiler.patch` # [issue 2217]( https://bitbucket.org/pypy/pypy/issues/2217/cross-translating-cffi-modules-unable-to)  
  `patch -p1 < $META-PYPY_SRC/patches/fix_64bit_host.patch` # [issue 2218]( https://bitbucket.org/pypy/pypy/issues/2218/cross-translating-on-64-bit-host-for-arm)  
  * Continue with steps from http://rpython.readthedocs.org/en/latest/arm.html#translation  
