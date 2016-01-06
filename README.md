@@ -28,10 +28,10 @@ To obtain the desired variables, just open a dev console `bitbake -c devshell ba
 * ``sb2-init -C "-march=armv5e -marm -mthumb-interwork --sysroot=/home/mzakharo/pypy/poky/build/tmp/sysroots/qemuarm -I/usr/lib/libffi-3.2.1/include" -c `which qemu-arm` ARM /home/mzakharo/pypy/poky/build/tmp/sysroots/x86_64-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc``
 
 #Translation
- wget https://bitbucket.org/pypy/pypy/downloads/pypy-4.0.1-src.zip  
- unzip pypy-4.0.1-src.zip  
- patch -p1  < $META-PYPY_SRC/patches/fix_unix_compiler.patch # [issue 2217]( https://bitbucket.org/pypy/pypy/issues/2217/cross-translating-cffi-modules-unable-to)  
- patch -p1 < $META-PYPY_SRC/patches/fix_64bit_host.patch # [issue 2218]( https://bitbucket.org/pypy/pypy/issues/2218/cross-translating-on-64-bit-host-for-arm)  
+ `wget https://bitbucket.org/pypy/pypy/downloads/pypy-4.0.1-src.zip`  
+ `unzip pypy-4.0.1-src.zip`  
+ `patch -p1  < $META-PYPY_SRC/patches/fix_unix_compiler.patch` # [issue 2217]( https://bitbucket.org/pypy/pypy/issues/2217/cross-translating-cffi-modules-unable-to)  
+ `patch -p1 < $META-PYPY_SRC/patches/fix_64bit_host.patch` # [issue 2218]( https://bitbucket.org/pypy/pypy/issues/2218/cross-translating-on-64-bit-host-for-arm)  
  Continue with steps from http://rpython.readthedocs.org/en/latest/arm.html#translation 
 #Add to local.conf for 64-bit host
 NO32LIBS=0  
