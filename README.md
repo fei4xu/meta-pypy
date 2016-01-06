@@ -14,7 +14,7 @@
 * Modify `/etc/schroot/schroot.conf` as per   http://rpython.readthedocs.org/en/latest/arm.html#creating-a-qemu-based-arm-chroot
 
 # Initialize rootfs
-`add NO32LIBS=0 to conf/local.conf` #for 64 bit hosts  
+`add NO32LIBS=0` to `conf/local.conf` #for 64 bit hosts  
 `bitbake pypy-rootfs` #to build rootfs for cross-translation  
 `export MACHINE=qemuarm`  #replace with your MACHINE from conf/local.conf  
 `rm -rf /srv/chroot/precise_arm*`  
