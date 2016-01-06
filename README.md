@@ -7,6 +7,7 @@
  
 # cross translating pypy on Ubuntu 14.04 x64
 * Follow general procedure from http://rpython.readthedocs.org/en/latest/arm.html#arm
+* Tested with Yocto 2.0, qemuarm, beaglebone target
 * `sudo apt-get install zlib1g:i386 libbz2-1.0:i386 libssl1.0.0:i386 libexpat1:i386 libffi6:i386 libtinfo5:i386`
 * `sudo mkdir -p /srv/chroot/precise_arm`
 * `sudo chown -R $USER /srv/chroot`
