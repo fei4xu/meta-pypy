@@ -17,7 +17,7 @@
 # Initialize rootfs
 `add NO32LIBS=0` to `conf/local.conf` #for 64 bit hosts  
 `bitbake pypy-rootfs` #to build rootfs for cross-translation  
-`export MACHINE=qemuarm`  #replace with your MACHINE from conf/local.conf  
+`export MACHINE=beaglebone`  #replace with your MACHINE from conf/local.conf  
 `rm -rf /srv/chroot/precise_arm*`  
 `runqemu-extract-sdk tmp/deploy/images/$MACHINE/pypy-rootfs-$MACHINE.tar.gz /srv/chroot/precise_arm`  
 `cp /usr/bin/qemu-arm-static /srv/chroot/precise_arm/usr/bin/qemu-arm-static`  
