@@ -24,7 +24,7 @@
 
 #Initialize scratchbox2
 
-sb2-init needs to be configured wiht bitbake's compiler. To obtain the desired variables, just open a dev console `bitbake -c devshell bash` and ``echo  $CC $CFLAGS `which $CC```     
+sb2-init needs to be configured wiht bitbake's compiler. To obtain the desired variables, just open a dev console `bitbake -c devshell bash` and ``echo  $CC  `which $CC``` . Also add -I/usr/lib/libffi-3.2.1/include to -C.   
 * Below is an example for qemuarm on Yocto 2.0:
 * `cd /srv/chroot/precise_arm`  
 * ``sb2-init -C "-march=armv5e -marm -mthumb-interwork --sysroot=/home/mzakharo/pypy/poky/build/tmp/sysroots/qemuarm -I/usr/lib/libffi-3.2.1/include" -c `which qemu-arm` ARM /home/mzakharo/pypy/poky/build/tmp/sysroots/x86_64-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc``
