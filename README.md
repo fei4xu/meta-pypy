@@ -34,10 +34,20 @@ sb2-init needs to be configured wiht bitbake's compiler. To obtain the desired v
  `tar -jxvf pypy-4.0.1-linux.tar.bz2`  
  `wget https://bitbucket.org/pypy/pypy/downloads/pypy-4.0.1-src.zip`  
  `unzip pypy-4.0.1-src.zip && cd pypy-4.0.1-src`  
- `patch -p1  < $META-PYPY_SRC/patches/fix_unix_compiler.patch` # [issue 2217]( https://bitbucket.org/pypy/pypy/issues/2217/cross-translating-cffi-modules-unable-to)  
+ `patch -p1  < $meta-pypy/patches/fix_unix_compiler.patch` # [issue 2217]( https://bitbucket.org/pypy/pypy/issues/2217/cross-translating-cffi-modules-unable-to)  
  `patch -p1 < $META-PYPY_SRC/patches/fix_64bit_host.patch` # [issue 2218]( https://bitbucket.org/pypy/pypy/issues/2218/cross-translating-on-64-bit-host-for-arm)  
  * Continue with steps from http://rpython.readthedocs.org/en/latest/arm.html#translation  
  `export SB2=/srv/chroot/precise_arm`  
  `export SB2OPT='-t ARM'`  
  `cd pypy/goal`  
- `../../../pypy-4.0.1-linux/bin/pypy ../../rpython/bin/rpython -Ojit --platform=arm --gcrootfinder=shadowstack --jit-backend=arm targetpypystandalone.py`  
+ `../../../pypy-4.0.1-linux/bin/pypy ../../rpython/bin/rpython -Ojit --platform=arm --gcrootfinder=shadowstack --jit-backend=arm targetpypystandalone.py`
+
+#Package
+ Example creating package for beaglebone  
+ `cd ../tool/release`  
+ `sb2 -t ARM ../../goal/pypy-c package.py --nostrip --without-tk --without-sqlite3 --archive-name pypy-4.0.1-cortexa8 --targetdir $meta-pypy/recipes-devtools/pypy/pypy/`  
+ 
+#Profit
+The following commands become available:  
+`bitbake pypy`  
+`bitbake pypy-numpy`  
