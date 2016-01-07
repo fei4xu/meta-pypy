@@ -16,6 +16,10 @@ S = "${WORKDIR}/git"
 inherit setuptools-pypy
 
 export DISTUTILS_DEBUG="1"
+
+#needed for some targets (ex: Beaglebone, but not qemuarm)
+export CFLAGS:="${CFLAGS} -fPIC"
+
 FILES_${PN}-staticdev += "${PYTHON_SITEPACKAGES_DIR}/numpy/core/lib/*.a"
 
 #avoid clashing with python-numpy
