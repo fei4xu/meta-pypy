@@ -6,7 +6,8 @@ LIC_FILES_CHKSUM = "file://PKG-INFO;beginline=8;endline=8;md5=8227180126797a0148
 
 SRCNAME = "txdbus"
 
-RDEPENDS_${PN} +="pypy-twisted-core"
+#FIXME: remove pypy-twisted-src when distutils-pypy fixes .pyc compilation bug
+RDEPENDS_${PN} +="pypy-twisted-core pypy-twisted-src"
 
 SRC_URI = "http://pypi.python.org/packages/source/t/${SRCNAME}/${SRCNAME}-${PV}.tar.gz"
 

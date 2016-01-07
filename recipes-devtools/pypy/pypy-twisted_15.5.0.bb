@@ -55,7 +55,7 @@ RDEPENDS_${PN} = "\
     ${PN}-words \
 "
 
-#RDEPENDS_${PN}-core = "pypy-zopeinterface pypy-contextlib"
+RDEPENDS_${PN}-core = "pypy-zopeinterface pypy-six"
 RDEPENDS_${PN}-test = "${PN}"
 RDEPENDS_${PN}-conch = "${PN}-core ${PN}-protocols"
 RDEPENDS_${PN}-lore = "${PN}-core"
