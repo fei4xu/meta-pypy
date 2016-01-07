@@ -7,7 +7,7 @@
  
 # Cross translating PyPy
 * Following the general procedure from http://rpython.readthedocs.org/en/latest/arm.html#arm
-* Tested with Yocto 2.0, qemuarm, beaglebone targets on Ubuntu 14.04 x64 host
+* Tested with Yocto 1.8.1/2.0, qemuarm, beaglebone targets on Ubuntu 14.04 x64 host
 * `sudo apt-get install zlib1g:i386 libbz2-1.0:i386 libssl1.0.0:i386 libexpat1:i386 libffi6:i386 libtinfo5:i386`
 * `sudo mkdir -p /srv/chroot/precise_arm`
 * `sudo chown -R $USER /srv/chroot`
@@ -25,9 +25,9 @@
 #Initialize scratchbox2
 
 sb2-init needs to be configured wiht bitbake's compiler. To obtain the desired variables, just open a dev console `bitbake -c devshell bash` and ``echo  $CC  `which $CC``` . Also add -I/usr/lib/libffi-3.2.1/include to -C.   
-* Below is an example for qemuarm on Yocto 2.0:
+* Below is an example for beaglebone on Yocto 1.8:
 * `cd /srv/chroot/precise_arm`  
-* ``sb2-init -C "-march=armv5e -marm -mthumb-interwork --sysroot=/home/mzakharo/pypy/poky/build/tmp/sysroots/qemuarm -I/usr/lib/libffi-3.2.1/include" -c `which qemu-arm` ARM /home/mzakharo/pypy/poky/build/tmp/sysroots/x86_64-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc``
+* ``sb2-init -C "-march=armv7-a -mfloat-abi=hard -mfpu=neon -mtune=cortex-a8 --sysroot=/home/mzakharo/dev/pypy/poky/build/tmp/sysroots/beaglebone -I/usr/lib/libffi-3.2.1/include" -c `which qemu-arm` ARM /home/mzakharo/dev/pypy/poky/build/tmp/sysroots/x86_64-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc``
 
 #Translation
  `wget https://bitbucket.org/pypy/pypy/downloads/pypy-4.0.1-linux.tar.bz2`  
