@@ -6,13 +6,11 @@ SECTION = "devel/python"
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=f87832d854acbade6e9f5c601c8b30b1"
 
-PV = "git${SRCPV}"
-
-SRC_URI = "git://bitbucket.org/pypy/numpy.git;protocol=https"
+SRC_URI = "https://bitbucket.org/pypy/numpy/get/pypy-${PV}.tar.bz2"
+SRC_URI[md5sum] = "dce4cc7be250eb55e3972da28c85c3e7"
+SRC_URI[sha256sum] = "67ccce67b898fba856b568e679aa6352bba6da9d14f743b8ebdd292218c4871e"
 #tag=4.0.1
-SRCREV="b45bd6a57e374d1e7401fe095daf5b45dc739f51"
-
-S = "${WORKDIR}/git"
+S = "${WORKDIR}/pypy-numpy-b45bd6a57e37"
 inherit setuptools-pypy
 
 export DISTUTILS_DEBUG="1"
