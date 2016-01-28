@@ -1,9 +1,10 @@
 # meta-pypy
  PyPy(https://bitbucket.org/pypy/pypy) support for Bitbake/Yocto/OpenEmbedded/OE
  
- * Cross-translation of pypy-core package is done out-of-tree. Somday bitbake will speak scratchbox, until then, instructions below
- * Supports cross-compiling cffi modules using native bitbake tool flow
- * Supports pypy's version of numpy (https://bitbucket.org/pypy/numpy/)
+ * Supports python setup.py build/install  
+ * Supports cross-compiling python C extensions
+ * Supports pypy's fork of numpy (https://bitbucket.org/pypy/numpy/)
+ * PyPy cross-translation build relies heavily on scratchbox2, hence core package is built outside of the bitbake flow
  
 # Cross translating PyPy
 * Following the general procedure from http://rpython.readthedocs.org/en/latest/arm.html#arm
