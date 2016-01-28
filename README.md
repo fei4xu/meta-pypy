@@ -4,7 +4,7 @@
  * Supports python setup.py build/install  
  * Supports cross-compiling python C extensions
  * Supports pypy's fork of numpy (https://bitbucket.org/pypy/numpy/)
- * PyPy cross-translation build relies heavily on scratchbox2, hence core package is built outside of the bitbake flow
+ * PyPy cross-translation flow relies heavily on scratchbox2, hence the pypy-core package is built outside of the bitbake flow
  
 # Cross translating PyPy
 * Following the general procedure from http://rpython.readthedocs.org/en/latest/arm.html#arm
