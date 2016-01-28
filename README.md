@@ -1,5 +1,5 @@
 # meta-pypy
- PyPy(https://bitbucket.org/pypy/pypy) support for Bitbake/Yocto/OpenEmbedded/OE
+ PyPy(https://bitbucket.org/pypy/pypy) support for Bitbake/Yocto/OpenEmbedded
  
  * Supports python setup.py build/install  
  * Supports cross-compiling python C extensions
