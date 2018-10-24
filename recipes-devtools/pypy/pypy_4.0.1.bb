@@ -1,7 +1,7 @@
 SUMMARY = "PyPy Interpreter"
 SECTION = "base"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "filce://${S}/LICENSE;md5=e915d0baff973dba7610ea88289dcddd"
+LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=e915d0baff973dba7610ea88289dcddd"
 
 RDEPENDS_${PN} = "libffi libssl expat bzip2 zlib ncurses-libncurses"
 
